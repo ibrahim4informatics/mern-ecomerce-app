@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String     @id @default(uuid())
+  name     String     @db.VarChar(50)
+  email    String     @unique
+  phone    String     @unique @db.VarChar(10)
+  password String
+  isAdmin  Boolean    @default(false)
+  products Products[]
+}
+
+model Products {
+  id          String  @id @default(uuid())
+  title       String
+  price       Decimal
+  description String  @db.VarChar(5000)
+  isApprouved Boolean @default(false)
+  stock       Int
+  image       String
+  user        User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     String
+}

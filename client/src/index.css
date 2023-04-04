@@ -1,0 +1,41 @@
+body {
+  box-sizing: border-box !important;
+}
+
+main {
+  min-height: calc(100vh - 335px);
+}
+
+a {
+  text-decoration: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+.active {
+  color: #0d6efd !important;
+  font-weight: bolder;
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+  animation: fadin 0.5s ease-in-out;
+}
+.spacer {
+  width: 100%;
+  height: 400px;
+}
+.full-height {
+  height: 100vh;
+}
+
+@keyframes fadin {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

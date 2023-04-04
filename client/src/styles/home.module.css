@@ -1,0 +1,27 @@
+.searchContainer {
+  width: 80%;
+  max-width: 480px;
+}
+.hero {
+  position: absolute;
+  width: 100%;
+}
+
+.wave {
+  position: relative;
+  width: 100%;
+  bottom: 0px;
+}
+.productsSection {
+  padding: 100px !important;
+}
+
+.about {
+  position: absolute;
+}
+
+.about img {
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
