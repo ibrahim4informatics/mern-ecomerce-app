@@ -59,7 +59,7 @@ module.exports.loginSeller = async (req, res) => {
 
     }
     catch (err) {
-        return res.status(500).json({ message: "login failed" })
+        return res.status(500).json({ message: "login failed", err })
     }
 
 
