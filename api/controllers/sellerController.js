@@ -73,7 +73,7 @@ module.exports.createProduct = async (req, res) => {
     const image = req.files.image
     const image_name = Date.now().toString() + image.name
     image.mv(`./public/images/${image_name}`, (err => { if (err) console.log(err) }))
-    const image_server_path = `http://localhost:3001/images/${image_name}`
+    const image_server_path = `https://ecommerce-nmgj.onrender.com/images/${image_name}`
 
     try {
         const user = await prisma.user.findUnique({ where: { id: user_id } })
