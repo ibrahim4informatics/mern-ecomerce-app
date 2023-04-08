@@ -1,10 +1,9 @@
-require('dotenv').config()
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT ||3001
 const path = require('path')
 
 
