@@ -10,7 +10,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/products")
+      .get("https://ecommerce-nmgj.onrender.com/api/products")
       .then((res) => getAllProducts(res.data.allProducts))
       .catch((err) => "");
   }, []);
@@ -19,7 +19,7 @@ const Products = () => {
     e.preventDefault();
     axios
       .get(
-        `http://localhost:3001/api/products/search?keyword=${keyword.current.value}`
+        `https://ecommerce-nmgj.onrender.com/api/products/search?keyword=${keyword.current.value}`
       )
       .then((res) => {
         getAllProducts(res.data.searchedProduct);

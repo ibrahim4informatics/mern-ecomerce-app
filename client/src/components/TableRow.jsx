@@ -9,7 +9,7 @@ const tableRow = ({ image, title, length, id, token, editable }) => {
     if (confirm) {
       axios
         .put(
-          `http://localhost:3001/api/seller/product/ban/${id}`,
+          `https://ecommerce-nmgj.onrender.com/api/seller/product/ban/${id}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         )
@@ -26,11 +26,14 @@ const tableRow = ({ image, title, length, id, token, editable }) => {
     console.log(confirm);
     if (confirm) {
       axios
-        .delete(`http://localhost:3001/api/seller/product/delete/${id}`, {
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
-        })
+        .delete(
+          `https://ecommerce-nmgj.onrender.com/api/seller/product/delete/${id}`,
+          {
+            headers: {
+              Authorization: `bearer ${token}`,
+            },
+          }
+        )
         .then((res) => alert("produc deleted"))
         .catch((err) => alert(err.response.data.message));
     } else {

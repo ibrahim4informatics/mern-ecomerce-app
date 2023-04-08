@@ -14,9 +14,13 @@ const Edit = () => {
   const clickHundler = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:3001/api/seller/product/edit/${id}`, productInfo, {
-        headers: { Authorization: `bearer ${cookies.token}` },
-      })
+      .put(
+        `https://ecommerce-nmgj.onrender.com/api/seller/product/edit/${id}`,
+        productInfo,
+        {
+          headers: { Authorization: `bearer ${cookies.token}` },
+        }
+      )
       .then((res) => {
         toast.success("Product Editted");
         setTimeout(() => nav("/dashboard"), 3000);
@@ -28,7 +32,7 @@ const Edit = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/products/${id}`)
+      .get(`https://ecommerce-nmgj.onrender.com/api/products/${id}`)
       .then((res) => {
         setProductInfo(res.data.product);
       })

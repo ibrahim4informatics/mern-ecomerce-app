@@ -8,7 +8,7 @@ const SingleProductPage = () => {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/products/${id}`)
+      .get(`https://ecommerce-nmgj.onrender.com/api/products/${id}`)
       .then((res) => getProduct(res.data.product))
       .catch((err) => "");
   }, [id]);

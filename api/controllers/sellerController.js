@@ -10,7 +10,7 @@ const path = require('path')
 
 
 
-/** POST http://localhost:3001/seller/register */
+/** POST https://ecommerce-nmgj.onrender.com/seller/register */
 module.exports.regiserSeller = async (req, res) => {
     const { name, email, phone, password, confirm } = req.body
 
@@ -44,7 +44,7 @@ module.exports.regiserSeller = async (req, res) => {
 
 }
 
-/** POST http://localhost:3001/seller/login */
+/** POST https://ecommerce-nmgj.onrender.com/seller/login */
 module.exports.loginSeller = async (req, res) => {
     const { email, password } = req.body
 
@@ -65,7 +65,7 @@ module.exports.loginSeller = async (req, res) => {
 
 }
 
-/** POST http://localhost:3001/seller/product/new */
+/** POST https://ecommerce-nmgj.onrender.com/seller/product/new */
 module.exports.createProduct = async (req, res) => {
     const { title, price, description, stock } = req.body
     const user_id = req.user_id.id
@@ -76,7 +76,7 @@ module.exports.createProduct = async (req, res) => {
     const image = req.files.image
     const image_name = Date.now().toString() + image.name
     image.mv(`./public/images/${image_name}`, (err => { if (err) console.log(err) }))
-    const image_server_path = `http://localhost:3001/images/${image_name}`
+    const image_server_path = `https://ecommerce-nmgj.onrender.com/images/${image_name}`
 
     try {
         const user = await prisma.user.findUnique({ where: { id: user_id } })
@@ -116,7 +116,7 @@ module.exports.createProduct = async (req, res) => {
 
 }
 
-/* delete seller product DELETE http://localhost:3001/api/seller/product/delete/productid */
+/* delete seller product DELETE https://ecommerce-nmgj.onrender.com/api/seller/product/delete/productid */
 module.exports.deleteProduct = async (req, res) => {
     const { product_id } = req.params;
     const _user = req.user_id
@@ -161,7 +161,7 @@ module.exports.deleteProduct = async (req, res) => {
     }
 }
 
-/**  get all user products  GET http://localhost:3001/api/products */
+/**  get all user products  GET https://ecommerce-nmgj.onrender.com/api/products */
 module.exports.getProducts = async (req, res) => {
     const _user = req.user_id;
     const user_id = _user.id;
@@ -215,7 +215,7 @@ module.exports.getProducts = async (req, res) => {
 
 }
 
-/** make product approuved  PUT http://localhost:3001/api/seller/product/aprouve/:id */
+/** make product approuved  PUT https://ecommerce-nmgj.onrender.com/api/seller/product/aprouve/:id */
 module.exports.setApprouved = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { id: req.user_id.id } })
     if (!user.isAdmin) return res.status(401).json({ message: "Not Authorized" })
@@ -236,7 +236,7 @@ module.exports.setApprouved = async (req, res) => {
     }
 }
 
-/** make product banned or not PUT http://localhost:3001/api/seller/product/aprouve/:id */
+/** make product banned or not PUT https://ecommerce-nmgj.onrender.com/api/seller/product/aprouve/:id */
 module.exports.setBanned = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { id: req.user_id.id } })
     if (!user.isAdmin) return res.status(401).json({ message: "Not Authorized" })
@@ -257,7 +257,7 @@ module.exports.setBanned = async (req, res) => {
     }
 }
 
-/** POST http://localhost:3001/api/seller/reset Reset Password  */
+/** POST https://ecommerce-nmgj.onrender.com/api/seller/reset Reset Password  */
 module.exports.getResetAccess = async (req, res) => {
     const { email } = req.body
 
@@ -266,7 +266,7 @@ module.exports.getResetAccess = async (req, res) => {
     if (!_user) return res.status(404).json({ message: "user doesnt exist" })
     try {
         const token = await jwt.sign({ email }, process.env.RESET_SECRET, { expiresIn: "15m" })
-        const reset_url = `http://localhost:3001/api/seller/reset?key=${token}`
+        const reset_url = `https://ecommerce-nmgj.onrender.com/api/seller/reset?key=${token}`
 
         let emailMessage = {
             from: `"Shop DZ 🛒" <${process.env.EMAIL}>`, // sender address
@@ -308,10 +308,10 @@ module.exports.getResetAccess = async (req, res) => {
  * if not exist return error
  * if exist send an url in his email with specifique query
  * passing 15 minute valid token to this url with his email
- * send this url to the user by email http://localhost:3001/reset?=token 
+ * send this url to the user by email https://ecommerce-nmgj.onrender.com/reset?=token 
  * 
 */
-/** PUT http://localhost:3001/api/seller/reset?=token UPDATE USER PASSWORD */
+/** PUT https://ecommerce-nmgj.onrender.com/api/seller/reset?=token UPDATE USER PASSWORD */
 
 
 

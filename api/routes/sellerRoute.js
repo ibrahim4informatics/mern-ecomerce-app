@@ -19,10 +19,10 @@ const auth = require('../midlewares/auth').auth
 const resetVerifier = require("../midlewares/resetVerfier")
 // authentication and authorization routes
 
-/* POST http://localhost:3001/api/seller/register  register seller */
+/* POST https://ecommerce-nmgj.onrender.com/api/seller/register  register seller */
 router.post('/register', anonym, sellerContoller.regiserSeller)
 
-/* POST http://localhost:3001/api/seller/login  login seller */
+/* POST https://ecommerce-nmgj.onrender.com/api/seller/login  login seller */
 router.post('/login', anonym, sellerContoller.loginSeller)
 
 
@@ -35,13 +35,13 @@ router.post('/login', anonym, sellerContoller.loginSeller)
 
 
 
-/** create product POST http://localhost:3001/api/seller/product/new */
+/** create product POST https://ecommerce-nmgj.onrender.com/api/seller/product/new */
 router.post('/product/new', auth, sellerContoller.createProduct)
 
-/**  get all user products  GET http://localhost:3001/api/products */
+/**  get all user products  GET https://ecommerce-nmgj.onrender.com/api/products */
 router.get("/products", auth, sellerContoller.getProducts)
 
-/** update product  PUT http://localhost:3001/api/seller/product/edit/product_id */
+/** update product  PUT https://ecommerce-nmgj.onrender.com/api/seller/product/edit/product_id */
 router.put("/product/edit/:product_id", auth, async (req, res) => {
     const { title, price, description, stock } = req.body;
     const _user = req.user_id;
@@ -65,18 +65,18 @@ router.put("/product/edit/:product_id", auth, async (req, res) => {
 
 })
 
-/* delete seller product DELETE http://localhost:3001/seller/product/delete/productid */
+/* delete seller product DELETE https://ecommerce-nmgj.onrender.com/seller/product/delete/productid */
 router.delete('/product/delete/:product_id', auth, sellerContoller.deleteProduct)
 
 
-/** make product approuved  PUT http://localhost:3001/api/seller/product/aprouve/:id */
+/** make product approuved  PUT https://ecommerce-nmgj.onrender.com/api/seller/product/aprouve/:id */
 router.put('/product/approuve/:product_id', auth, sellerContoller.setApprouved)
 
 
-/** make product banned or not PUT http://localhost:3001/api/seller/product/aprouve/:id */
+/** make product banned or not PUT https://ecommerce-nmgj.onrender.com/api/seller/product/aprouve/:id */
 router.put('/product/ban/:product_id', auth, sellerContoller.setBanned)
 
-/** POST http://localhost:3001/api/seller/reset get access to reset password */
+/** POST https://ecommerce-nmgj.onrender.com/api/seller/reset get access to reset password */
 router.route("/reset").post(sellerContoller.getResetAccess)
 router.get('/reset', resetVerifier, async (req, res) => {
     const key = req.query.key

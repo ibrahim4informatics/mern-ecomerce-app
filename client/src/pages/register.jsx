@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3001/api/seller/register",
+        "https://ecommerce-nmgj.onrender.com/api/seller/register",
         credentials,
         { headers: { Authorization: cookies.token } }
       );

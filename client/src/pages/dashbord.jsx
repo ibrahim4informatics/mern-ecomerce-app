@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/seller/products", {
+      .get("https://ecommerce-nmgj.onrender.com/api/seller/products", {
         headers: { Authorization: `Bearer ${cookies.token}` },
       })
       .then((res) => {

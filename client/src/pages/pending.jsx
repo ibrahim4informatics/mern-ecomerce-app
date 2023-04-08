@@ -14,11 +14,14 @@ const Pending = () => {
     const confirm = window.confirm(`sure to delte product : ${title}`);
     if (confirm) {
       axios
-        .delete(`http://localhost:3001/api/seller/product/delete/${id}`, {
-          headers: {
-            Authorization: `bearer ${cookies.token}`,
-          },
-        })
+        .delete(
+          `https://ecommerce-nmgj.onrender.com/api/seller/product/delete/${id}`,
+          {
+            headers: {
+              Authorization: `bearer ${cookies.token}`,
+            },
+          }
+        )
         .then((res) => alert("produc deleted"))
         .catch((err) => alert(err.response.data.message));
     } else {
@@ -31,7 +34,7 @@ const Pending = () => {
     if (confirm) {
       axios
         .put(
-          `http://localhost:3001/api/seller/product/approuve/${id}`,
+          `https://ecommerce-nmgj.onrender.com/api/seller/product/approuve/${id}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         )
@@ -45,7 +48,7 @@ const Pending = () => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/seller/pending", {
+      .get("https://ecommerce-nmgj.onrender.com/api/seller/pending", {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },

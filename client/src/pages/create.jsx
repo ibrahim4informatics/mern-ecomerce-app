@@ -12,7 +12,7 @@ const Create = () => {
   const formData = new FormData();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/seller/products", {
+      .get("https://ecommerce-nmgj.onrender.com/api/seller/products", {
         headers: { Authorization: `Bearer ${cookies.token}` },
       })
       .then((res) => "")
@@ -30,9 +30,13 @@ const Create = () => {
 
     console.log(productInfo);
     axios
-      .post("http://localhost:3001/api/seller/product/new", formData, {
-        headers: { Authorization: `bearer ${cookies.token}` },
-      })
+      .post(
+        "https://ecommerce-nmgj.onrender.com/api/seller/product/new",
+        formData,
+        {
+          headers: { Authorization: `bearer ${cookies.token}` },
+        }
+      )
       .then((res) => {
         const msg = res.data.message;
         toast.success(`${msg}, you'll be redirected after 5s`);

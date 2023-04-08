@@ -11,7 +11,7 @@ const Home = () => {
   const [cookies] = useCookies();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/products")
+      .get("https://ecommerce-nmgj.onrender.com/api/products")
       .then((res) => {
         const allProducts = res.data.allProducts;
         const recentProduct = allProducts.slice(-7);

@@ -13,7 +13,7 @@ function Login() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/seller/login",
+        "https://ecommerce-nmgj.onrender.com/api/seller/login",
         credentials,
         { headers: { Authorization: cookies.token } }
       );

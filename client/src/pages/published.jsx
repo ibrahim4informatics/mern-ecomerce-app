@@ -11,7 +11,7 @@ const Published = () => {
   const nav = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/seller/products", {
+      .get("https://ecommerce-nmgj.onrender.com/api/seller/products", {
         headers: { Authorization: `bearer ${cookies.token}` },
       })
       .then((res) => getSellerInfo(res.data))
