@@ -50,17 +50,14 @@ module.exports.loginSeller = async (req, res) => {
 
     if (!email || !password) return res.status(400).json({ message: "fill all fields" })
 
-    try {
-        const user = await prisma.user.findUnique({ where: { email } })
-        if (!user) return res.status(404).json({ message: "invalid email" })
-        if (!(bcrypt.compareSync(password, user.password))) return res.status(401).json({ message: "invalid password" });
-        const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: "24h" })
-        return res.status(200).json({ message: "login successfully", token })
+    
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user) return res.status(404).json({ message: "invalid email" })
+    if (!(bcrypt.compareSync(password, user.password))) return res.status(401).json({ message: "invalid password" });
+    const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: "24h" })
+    return res.status(200).json({ message: "login successfully", token })
 
-    }
-    catch (err) {
-        return res.status(500).json({ message: "login failed", err })
-    }
+
 
 
 }
