@@ -5,8 +5,22 @@ const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
 const SECRET = process.env.SECRET
 const transporter = require('../functions/nodemailer')
+const { initializeApp } = require('firebase/app')
+const { ref, getStorage, getDownloadURL, uploadBytesResumable } = require('firebase/storage')
 const fs = require('fs')
-const path = require('path')
+
+
+const firebaseConfig = {
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID,
+    measurementId: process.env.MESURMENT_ID
+};
+const fireApp = initializeApp(firebaseConfig)
+const storage = getStorage()
 
 
 
@@ -50,7 +64,7 @@ module.exports.loginSeller = async (req, res) => {
 
     if (!email || !password) return res.status(400).json({ message: "fill all fields" })
 
-    
+
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) return res.status(404).json({ message: "invalid email" })
     if (!(bcrypt.compareSync(password, user.password))) return res.status(401).json({ message: "invalid password" });
@@ -71,10 +85,13 @@ module.exports.createProduct = async (req, res) => {
     const images = req.files
     if (!images) return res.status(400).json({ message: "image is required" })
     const image = req.files.image
-    const image_name = Date.now().toString() + image.name
-    image.mv(`./public/images/${image_name}`, (err => { if (err) console.log(err) }))
-    const image_server_path = `https://ecommerce-nmgj.onrender.com/images/${image_name}`
-
+    const image_name = Date.now().toString() + "-" + image.name
+    const storageRef = ref(storage, image_name)
+    const metaData = {
+        "contentType": image.mimetype
+    }
+    const snapshot = await uploadBytesResumable(storageRef, image.data, metaData)
+    const image_url = await getDownloadURL(snapshot.ref)
     try {
         const user = await prisma.user.findUnique({ where: { id: user_id } })
 
@@ -82,7 +99,7 @@ module.exports.createProduct = async (req, res) => {
             try {
                 const newProduct = await prisma.products.create({
                     data: {
-                        title, price: Number.parseFloat(price), description, stock: Number.parseInt(stock), image: image_server_path, user_id: user_id,
+                        title, price: Number.parseFloat(price), description, stock: Number.parseInt(stock), image: image_url, user_id: user_id,
                         isApprouved: true,
                     }
                 })
@@ -96,7 +113,7 @@ module.exports.createProduct = async (req, res) => {
             try {
                 const newProduct = await prisma.products.create({
                     data: {
-                        title, price: Number.parseFloat(price), description, stock: Number.parseInt(stock), image: image_server_path, user_id: user_id,
+                        title, price: Number.parseFloat(price), description, stock: Number.parseInt(stock), image: image_url, user_id: user_id,
                     }
                 })
                 return res.status(201).json({ mesage: "product added", product: newProduct })
